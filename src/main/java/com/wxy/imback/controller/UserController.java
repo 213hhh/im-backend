@@ -4,6 +4,7 @@ import com.wxy.imback.constant.BizCodeEnum;
 import com.wxy.imback.expection.BizException;
 import com.wxy.imback.model.params.UserLoginByMailQuery;
 import com.wxy.imback.model.params.UserRegisterByMailParam;
+import com.wxy.imback.model.vo.FriendListVO;
 import com.wxy.imback.model.vo.FriendVO;
 import com.wxy.imback.model.vo.UserVO;
 import com.wxy.imback.service.UserService;
@@ -90,6 +91,12 @@ public class UserController {
     @PostMapping("/check_friend")
     public void checkFriend(@RequestParam Integer id) {
         userService.checkFriend(id);
+    }
+
+
+    @GetMapping("/contacts")
+    public List<FriendListVO> getContacts(){
+        return userService.getContacts();
     }
 
 }

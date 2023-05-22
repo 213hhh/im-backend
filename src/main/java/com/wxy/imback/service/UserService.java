@@ -3,6 +3,7 @@ package com.wxy.imback.service;
 import com.wxy.imback.expection.BizException;
 import com.wxy.imback.model.params.UserLoginByMailQuery;
 import com.wxy.imback.model.params.UserRegisterByMailParam;
+import com.wxy.imback.model.vo.FriendListVO;
 import com.wxy.imback.model.vo.FriendVO;
 import com.wxy.imback.model.vo.UserVO;
 import com.wxy.imback.utils.Result;
@@ -62,4 +63,10 @@ public interface UserService {
      * @param id
      */
     void checkFriend(Integer id);
+
+    /**
+     * 获取联系人列表
+     * @return
+     */
+    List<FriendListVO> getContacts();
 }

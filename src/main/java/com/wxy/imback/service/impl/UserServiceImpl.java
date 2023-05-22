@@ -1,6 +1,5 @@
 package com.wxy.imback.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wxy.imback.constant.BizCodeEnum;
 import com.wxy.imback.constant.SendCodeEnum;
 import com.wxy.imback.expection.BizException;
@@ -13,6 +12,7 @@ import com.wxy.imback.model.entity.FriendApplicationRecord;
 import com.wxy.imback.model.entity.User;
 import com.wxy.imback.model.params.UserLoginByMailQuery;
 import com.wxy.imback.model.params.UserRegisterByMailParam;
+import com.wxy.imback.model.vo.FriendListVO;
 import com.wxy.imback.model.vo.FriendVO;
 import com.wxy.imback.model.vo.UserVO;
 import com.wxy.imback.service.NotifyService;
@@ -32,7 +32,6 @@ import org.springframework.util.Assert;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * @Author WXY
@@ -138,9 +137,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserVO findUserByMail(String mail) {
-        Assert.isTrue(StringUtils.isNotBlank(mail),BizCodeEnum.EMAIL_IS_NULL.getMessage());
+        Assert.isTrue(StringUtils.isNotBlank(mail), BizCodeEnum.EMAIL_IS_NULL.getMessage());
         User user = userMapper.selectByMail(mail);
-        Assert.isTrue(user!=null,BizCodeEnum.ACCOUNT_UNREGISTER.getMessage());
+        Assert.isTrue(user != null, BizCodeEnum.ACCOUNT_UNREGISTER.getMessage());
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
         return userVO;
@@ -161,7 +160,6 @@ public class UserServiceImpl implements UserService {
         FriendApplicationRecord friendApplicationRecord = applicationRecordMapperV2.selectByFriendId(friend.getUserId());
         if (friendApplicationRecord != null) {
             log.info("重复发送间隔:{}", (System.currentTimeMillis() - friendApplicationRecord.getAddTime()) / 1000);
-
             Assert.isTrue((System.currentTimeMillis() - friendApplicationRecord.getAddTime()) / 1000 >= VALIDATION_EXPIRATION_TIME, BizCodeEnum.ADD_REPEAT.getMessage());
         }
         return addFriendApplicationRecord(loginUser, friend);
@@ -176,8 +174,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<FriendVO> getFriendAddList() {
         LoginUser loginUser = LoginInterceptor.threadLocal.get();
-        List<FriendVO> userList = userMapper.selectFriendAddList(loginUser.getUserId());
-        return userList;
+        return userMapper.selectFriendAddList(loginUser.getUserId());
     }
 
     /**
@@ -187,7 +184,18 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void checkFriend(Integer id) {
-       userMapper.checkFriendById(id);
+        userMapper.checkFriendById(id);
+    }
+
+    /**
+     * 获取联系人列表
+     *
+     * @return
+     */
+    @Override
+    public List<FriendListVO> getContacts() {
+        LoginUser loginUser = LoginInterceptor.threadLocal.get();
+        return userMapper.selectFriendList(loginUser.getUserId());
     }
 
 
