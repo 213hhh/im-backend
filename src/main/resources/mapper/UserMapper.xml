@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxy.imback.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.wxy.imback.model.entity.User">
+        <id property="userId" column="user_id" jdbcType="OTHER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="TINYINT"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="personalSignature" column="personal_signature" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="DATE"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="lastLoginTime" column="last_login_time" jdbcType="BIGINT"/>
+        <result property="activate" column="activate" jdbcType="TINYINT"/>
+        <result property="activateTime" column="activate_time" jdbcType="BIGINT"/>
+        <result property="channel" column="channel" jdbcType="VARCHAR"/>
+        <result property="secretMobile" column="secret_mobile" jdbcType="VARCHAR"/>
+        <result property="device" column="device" jdbcType="VARCHAR"/>
+        <result property="deviceId" column="device_id" jdbcType="VARCHAR"/>
+        <result property="deviceModel" column="device_model" jdbcType="VARCHAR"/>
+        <result property="ip" column="ip" jdbcType="BIGINT"/>
+        <result property="active" column="active" jdbcType="TINYINT"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="BIGINT"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id
+        ,user_name,nick_name,
+        email,password,gender,
+        avatar,personal_signature,birthday,
+        mobile,last_login_time,activate,
+        activate_time,channel,secret_mobile,
+        device,device_id,device_model,
+        ip,active,gmt_create,
+        gmt_modified
+    </sql>
+
+    <update id="checkFriendById">
+     update friend_application_record set passed = 1 where friend_id = #{id}
+    </update>
+
+    <select id="selectByMail" resultType="com.wxy.imback.model.entity.User">
+        select
+        <include refid="Base_Column_List"></include>
+        from user where email=#{mail}
+    </select>
+
+    <select id="selectFriendAddList" resultType="com.wxy.imback.model.vo.FriendVO">
+        select
+            a.user_id, a.user_name, a.nick_name,
+            a.email, a.password, a.gender,
+            a.avatar, a.personal_signature, a.birthday,
+            a.mobile, a.last_login_time, a.activate,
+            a.activate_time, a.channel, a.secret_mobile,
+            a.device, a.device_id, a.device_model,
+            a.ip, a.active, a.gmt_create,
+            a.gmt_modified,b.passed
+        from user a  join friend_application_record b
+        on a.user_id = b.friend_id where b.user_id = #{user_id}
+    </select>
+</mapper>

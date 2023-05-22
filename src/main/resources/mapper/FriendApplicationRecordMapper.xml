@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxy.imback.mapper.FriendApplicationRecordMapper">
+
+    <resultMap id="BaseResultMap" type="com.wxy.imback.model.entity.FriendApplicationRecord">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="friendId" column="friend_id" jdbcType="INTEGER"/>
+        <result property="passed" column="passed" jdbcType="TINYINT"/>
+        <result property="isDelete" column="is_delete" jdbcType="TINYINT"/>
+        <result property="addTime" column="add_time" jdbcType="BIGINT"/>
+        <result property="isBlock" column="is_block" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,user_id,friend_id,
+        passed,is_delete,add_time,is_block
+    </sql>
+    <select id="selectFriendAddList" resultType="com.wxy.imback.model.entity.User">
+        select a.id, a.user_id, a.friend_id, a.passed, a.is_delete, a.add_time,a.is_block
+        from friend_application_record as a
+                 left join user as b on a.friend_id = b.user_id
+        where a.user_id = #{user_id}
+    </select>
+
+
+</mapper>
