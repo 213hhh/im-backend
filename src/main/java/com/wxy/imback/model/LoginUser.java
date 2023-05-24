@@ -11,7 +11,7 @@ import lombok.Data;
 public class LoginUser {
 
 
-    private Integer userId;
+    private Long userId;
 
     /**
      * 用户名

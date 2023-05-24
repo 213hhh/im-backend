@@ -5,7 +5,7 @@
 <mapper namespace="com.wxy.imback.mapper.UserMapper">
 
     <resultMap id="BaseResultMap" type="com.wxy.imback.model.entity.User">
-        <id property="userId" column="user_id" jdbcType="OTHER"/>
+        <id property="userId" column="user_id" jdbcType="BIGINT"/>
         <result property="userName" column="user_name" jdbcType="VARCHAR"/>
         <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
@@ -51,7 +51,7 @@
         from user where email=#{mail}
     </select>
 
-    <select id="selectFriendAddList" resultType="com.wxy.imback.model.vo.FriendVO">
+    <select id="selectFriendAddList" resultType="com.wxy.imback.model.vo.FriendAuditVO">
         select
             a.user_id, a.user_name, a.nick_name,
             a.email, a.password, a.gender,

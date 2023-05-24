@@ -1,14 +1,12 @@
 package com.wxy.imback.service;
 
 import com.wxy.imback.expection.BizException;
-import com.wxy.imback.model.params.UserLoginByMailQuery;
-import com.wxy.imback.model.params.UserRegisterByMailParam;
+import com.wxy.imback.model.params.userparams.UserLoginByMailQuery;
+import com.wxy.imback.model.params.userparams.UserRegisterByMailParam;
 import com.wxy.imback.model.vo.FriendListVO;
-import com.wxy.imback.model.vo.FriendVO;
+import com.wxy.imback.model.vo.FriendAuditVO;
 import com.wxy.imback.model.vo.UserVO;
-import com.wxy.imback.utils.Result;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -43,30 +41,5 @@ public interface UserService {
      */
     UserVO findUserByMail(String mail);
 
-    /**
-     * 添加好友
-     *
-     * @param mail
-     * @return
-     */
-    Integer addFriend(String mail);
 
-    /**
-     * 获取新好友申请列表
-     *
-     * @return
-     */
-    List<FriendVO> getFriendAddList();
-
-    /**
-     * 好友申请审核
-     * @param id
-     */
-    void checkFriend(Integer id);
-
-    /**
-     * 获取联系人列表
-     * @return
-     */
-    List<FriendListVO> getContacts();
 }

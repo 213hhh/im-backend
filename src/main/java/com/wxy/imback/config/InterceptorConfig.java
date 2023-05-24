@@ -22,7 +22,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         LoginInterceptor loginInterceptor = new LoginInterceptor();
         registry.addInterceptor(loginInterceptor)
-                .addPathPatterns("/user/*")
+                .addPathPatterns("/user/*","/contacts/*")
                 .excludePathPatterns(
                         "/user/mail_register",
                         "/user/mail_login",

@@ -3,17 +3,12 @@ package com.wxy.imback.service.impl;
 import com.wxy.imback.constant.BizCodeEnum;
 import com.wxy.imback.constant.SendCodeEnum;
 import com.wxy.imback.expection.BizException;
-import com.wxy.imback.interceptor.LoginInterceptor;
 import com.wxy.imback.mapper.FriendApplicationRecordMapper;
-import com.wxy.imback.mapper.FriendApplicationRecordMapperV2;
 import com.wxy.imback.mapper.UserMapper;
 import com.wxy.imback.model.LoginUser;
-import com.wxy.imback.model.entity.FriendApplicationRecord;
 import com.wxy.imback.model.entity.User;
-import com.wxy.imback.model.params.UserLoginByMailQuery;
-import com.wxy.imback.model.params.UserRegisterByMailParam;
-import com.wxy.imback.model.vo.FriendListVO;
-import com.wxy.imback.model.vo.FriendVO;
+import com.wxy.imback.model.params.userparams.UserLoginByMailQuery;
+import com.wxy.imback.model.params.userparams.UserRegisterByMailParam;
 import com.wxy.imback.model.vo.UserVO;
 import com.wxy.imback.service.NotifyService;
 import com.wxy.imback.service.UserService;
@@ -29,7 +24,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -51,8 +45,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private NotifyService notifyService;
 
-    @Autowired
-    private FriendApplicationRecordMapperV2 applicationRecordMapperV2;
+
 
     @Autowired
     private FriendApplicationRecordMapper applicationRecordMapper;
@@ -145,74 +138,6 @@ public class UserServiceImpl implements UserService {
         return userVO;
     }
 
-    /**
-     * 添加好友
-     *
-     * @param mail
-     * @return
-     */
-    @Override
-    public Integer addFriend(String mail) {
-        LoginUser loginUser = LoginInterceptor.threadLocal.get();
-        User friend = userMapper.selectByMail(mail);
-        Assert.isTrue(friend != null, BizCodeEnum.ACCOUNT_UNREGISTER.getMessage());
-        Assert.isTrue(!loginUser.getUserId().equals(friend.getUserId()), BizCodeEnum.CAN_NOT_ADD_MYSELF.getMessage());
-        FriendApplicationRecord friendApplicationRecord = applicationRecordMapperV2.selectByFriendId(friend.getUserId());
-        if (friendApplicationRecord != null) {
-            log.info("重复发送间隔:{}", (System.currentTimeMillis() - friendApplicationRecord.getAddTime()) / 1000);
-            Assert.isTrue((System.currentTimeMillis() - friendApplicationRecord.getAddTime()) / 1000 >= VALIDATION_EXPIRATION_TIME, BizCodeEnum.ADD_REPEAT.getMessage());
-        }
-        return addFriendApplicationRecord(loginUser, friend);
-    }
-
-
-    /**
-     * 获取新好友申请列表
-     *
-     * @return
-     */
-    @Override
-    public List<FriendVO> getFriendAddList() {
-        LoginUser loginUser = LoginInterceptor.threadLocal.get();
-        return userMapper.selectFriendAddList(loginUser.getUserId());
-    }
-
-    /**
-     * 好友申请审核
-     *
-     * @param id
-     */
-    @Override
-    public void checkFriend(Integer id) {
-        userMapper.checkFriendById(id);
-    }
-
-    /**
-     * 获取联系人列表
-     *
-     * @return
-     */
-    @Override
-    public List<FriendListVO> getContacts() {
-        LoginUser loginUser = LoginInterceptor.threadLocal.get();
-        return userMapper.selectFriendList(loginUser.getUserId());
-    }
-
-
-    /**
-     * 添加申请记录
-     *
-     * @param loginUser
-     * @param friend
-     * @return
-     */
-    private Integer addFriendApplicationRecord(LoginUser loginUser, User friend) {
-        FriendApplicationRecord friendApplicationRecord = new FriendApplicationRecord();
-        friendApplicationRecord.setUserId(loginUser.getUserId());
-        friendApplicationRecord.setAddTime(CommonUtil.getCurrentTimestamp());
-        friendApplicationRecord.setFriendId(friend.getUserId());
-        return applicationRecordMapper.insert(friendApplicationRecord);
-    }
 
 
 }

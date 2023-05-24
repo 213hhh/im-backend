@@ -3,15 +3,21 @@ package com.wxy.imback.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Base64;
 import java.util.Random;
 import java.util.UUID;
+
+import static javax.crypto.Cipher.SECRET_KEY;
 
 /**
  * @Author WXY
@@ -19,6 +25,12 @@ import java.util.UUID;
  * @Version 1.0
  */
 public class CommonUtil {
+
+
+
+    private static final String SECRET_KEY = "mysecretkey12345"; // 密钥
+
+
     /**
      * 获取ip
      *
@@ -70,6 +82,40 @@ public class CommonUtil {
     }
 
     /**
+     * 加密
+     *
+     * @param str
+     * @return
+     */
+    public static String encrypt(String str) throws Exception{
+        SecretKeySpec secretKey = new SecretKeySpec(SECRET_KEY.getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+        byte[] encryptedBytes = cipher.doFinal(str.getBytes(StandardCharsets.UTF_8));
+        return Base64.getEncoder().encodeToString(encryptedBytes);
+    }
+
+
+    /**
+     * 解密
+     * @param encryptedText
+     * @return
+     * @throws Exception
+     */
+    public static String decrypt(String encryptedText) throws Exception {
+        SecretKeySpec secretKey = new SecretKeySpec(SECRET_KEY.getBytes(), "AES");
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] encryptedBytes = Base64.getDecoder().decode(encryptedText);
+        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+        return new String(decryptedBytes, StandardCharsets.UTF_8);
+    }
+
+
+
+
+
+    /**
      * MD5加密
      *
      * @param data
@@ -99,7 +145,7 @@ public class CommonUtil {
         Random random = new Random();
         StringBuilder code = new StringBuilder();
         for (int i = 0; i < length; i++) {
-           code.append(random.nextInt(9));
+            code.append(random.nextInt(9));
         }
         return code.toString();
     }
@@ -160,8 +206,6 @@ public class CommonUtil {
 //            writer.close();
 //        }
     }
-
-
 
 
     public static long bytesToLong(byte[] bytes) {

@@ -40,7 +40,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 CommonUtil.sendJsonMessage(response, Result.error(BizCodeEnum.ACCOUNT_UNLOGIN));
                 return false;
             }
-            Integer id = Integer.valueOf(claims.get("user_id").toString());
+            Long id = Long.parseLong(claims.get("user_id").toString());
             String mail = (String) claims.get("email");
             String userName = (String) claims.get("user_name");
             String mobile = (String) claims.get("mobile");

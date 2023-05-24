@@ -1,21 +1,20 @@
-package com.wxy.imback.model.entity;
+package com.wxy.imback.model.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import lombok.Data;
 
 import java.io.Serializable;
 
-import lombok.Data;
-
 /**
- * @TableName friend_application_record
+ * @Author WXY
+ * @Date 2023/5/24 19:09
+ * @Version 1.0
  */
-@TableName(value = "friend_application_record")
 @Data
-public class FriendApplicationRecord implements Serializable {
-    /**
-     *
-     */
-    @TableId(type = IdType.AUTO)
+public class FriendApplicationRecordVO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
 
     /**
@@ -36,11 +35,10 @@ public class FriendApplicationRecord implements Serializable {
     /**
      * 是否删除 0未删除 1已删除
      */
-    @TableLogic
     private Integer isDelete;
 
     /**
-     * 申请时间
+     *
      */
     private Long applyTime;
 
@@ -74,7 +72,6 @@ public class FriendApplicationRecord implements Serializable {
      */
     private String auditReason;
 
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+
 
 }

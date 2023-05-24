@@ -3,7 +3,7 @@ package com.wxy.imback.controller;
 import com.google.code.kaptcha.Producer;
 import com.wxy.imback.constant.BizCodeEnum;
 import com.wxy.imback.constant.SendCodeEnum;
-import com.wxy.imback.model.params.SendMailCodeParams;
+import com.wxy.imback.model.params.userparams.SendMailCodeParams;
 import com.wxy.imback.service.NotifyService;
 import com.wxy.imback.utils.CommonUtil;
 import com.wxy.imback.utils.Result;

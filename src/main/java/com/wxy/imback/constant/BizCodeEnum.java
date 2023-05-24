@@ -31,8 +31,8 @@ public enum BizCodeEnum implements ErrorCode {
     ACCOUNT_UNREGISTER(250002, "账号不存在"),
     ACCOUNT_PWD_ERROR(250003, "账号或者密码错误"),
     ACCOUNT_UNLOGIN(250004, "账号未登陆"),
-    EMAIL_IS_NULL(250005, "请输入邮箱"),
-    PHONE_IS_NULL(250006, "请输入手机号"),
+    EMAIL_IS_NULL(250005, "请输入正确邮箱"),
+    PHONE_IS_NULL(250006, "请输入正确手机号"),
     PASSWORD_IS_NULL(250007, "请输入密码"),
     USER_NAME_IS_NULL(250008, "请输入用户名"),
     REGISTER_FAILED(250009, "注册失败"),
@@ -45,7 +45,7 @@ public enum BizCodeEnum implements ErrorCode {
 
     CAN_NOT_ADD_MYSELF(260000, "不能添加自己"),
     ADD_REPEAT(260001, "请勿重复添加"),
-
+    ADD_AS_FRIEND(260002, "已添加为好友"),
 
     /**
      * 文件相关

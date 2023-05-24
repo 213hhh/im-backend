@@ -2,10 +2,10 @@ package com.wxy.imback.controller;
 
 import com.wxy.imback.constant.BizCodeEnum;
 import com.wxy.imback.expection.BizException;
-import com.wxy.imback.model.params.UserLoginByMailQuery;
-import com.wxy.imback.model.params.UserRegisterByMailParam;
+import com.wxy.imback.model.params.userparams.UserLoginByMailQuery;
+import com.wxy.imback.model.params.userparams.UserRegisterByMailParam;
 import com.wxy.imback.model.vo.FriendListVO;
-import com.wxy.imback.model.vo.FriendVO;
+import com.wxy.imback.model.vo.FriendAuditVO;
 import com.wxy.imback.model.vo.UserVO;
 import com.wxy.imback.service.UserService;
 import com.wxy.imback.utils.Result;
@@ -63,40 +63,6 @@ public class UserController {
 
     }
 
-    /**
-     * 添加好友
-     *
-     * @param mail
-     * @return
-     */
-    @PostMapping("/add_friend")
-    public Integer addFriend(@RequestParam String mail) {
-        return userService.addFriend(mail);
-    }
 
-    /**
-     * 获取新好友申请列表
-     *
-     * @return
-     */
-    @GetMapping("/get_friend_add_list")
-    public List<FriendVO> getFriendAddList() {
-        return userService.getFriendAddList();
-    }
-
-
-    /**
-     * 好友申请审核
-     */
-    @PostMapping("/check_friend")
-    public void checkFriend(@RequestParam Integer id) {
-        userService.checkFriend(id);
-    }
-
-
-    @GetMapping("/contacts")
-    public List<FriendListVO> getContacts(){
-        return userService.getContacts();
-    }
 
 }
