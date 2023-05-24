@@ -62,7 +62,6 @@ public class ContactsController {
      */
     @PostMapping("/audit_friend_apply")
     public Boolean auditFriendApply(@RequestBody FriendAuditParam param  ){
-
         return contactsService.auditFriendApply(param);
     }
 

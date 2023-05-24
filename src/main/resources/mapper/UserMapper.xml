@@ -42,7 +42,7 @@
     </sql>
 
     <update id="checkFriendById">
-     update friend_application_record set passed = 1 where friend_id = #{id}
+     update friend_application_record set audit_status = 1 where friend_id = #{id}
     </update>
 
     <select id="selectByMail" resultType="com.wxy.imback.model.entity.User">
@@ -60,7 +60,7 @@
             a.activate_time, a.channel, a.secret_mobile,
             a.device, a.device_id, a.device_model,
             a.ip, a.active, a.gmt_create,
-            a.gmt_modified,b.passed
+            a.gmt_modified,b.audit_status
         from user a  join friend_application_record b
         on a.user_id = b.friend_id where b.user_id = #{user_id}
     </select>
@@ -77,7 +77,7 @@
             a.ip, a.active, a.gmt_create,
             a.gmt_modified
         from user a join friend_application_record b
-      on a.user_id = b.friend_id where b.user_id = #{user_id} and b.passed = 1
+      on a.user_id = b.friend_id where b.user_id = #{user_id} and b.audit_status = 1
 
 
 

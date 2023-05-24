@@ -64,7 +64,6 @@ public class ContactsServiceImpl implements ContactsService {
         User user = userMapper.selectByMail(param.getUserIdentify());
         Assert.isTrue(user != null, BizCodeEnum.ACCOUNT_UNREGISTER.getMessage());
         return getUserFriendApplyVO(user);
-
     }
 
     @NotNull
@@ -91,9 +90,9 @@ public class ContactsServiceImpl implements ContactsService {
         if (friendApplicationRecordVO == null) {
             return saveFriend(loginUser, friendId);
         }
-        Assert.isTrue(!(friendApplicationRecordVO.getPassed().equals(AuditStatus.PASS)),
+        Assert.isTrue(!(friendApplicationRecordVO.getAuditStatus().equals(AuditStatus.PASS)),
                 BizCodeEnum.ADD_AS_FRIEND.getMessage());
-        if (friendApplicationRecordVO.getPassed().equals(AuditStatus.NOT_AUDIT)) {
+        if (friendApplicationRecordVO.getAuditStatus().equals(AuditStatus.NOT_AUDIT)) {
             log.info("重复发送间隔:{}", (System.currentTimeMillis() - friendApplicationRecordVO.getApplyTime()) / 1000);
             Assert.isTrue((System.currentTimeMillis() - friendApplicationRecordVO.getApplyTime()) / 1000 >= VALIDATION_EXPIRATION_TIME, BizCodeEnum.ADD_REPEAT.getMessage());
         }

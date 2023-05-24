@@ -32,7 +32,7 @@ public class FriendAuditParam implements Serializable {
     /**
      * 申请状态 0未审核 1通过 2不通过
      */
-    private Integer passed;
+    private Integer auditStatus;
 
     /**
      * 如果是群则为群id 好友为好友id

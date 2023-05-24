@@ -31,7 +31,7 @@ public class FriendAuditVO implements Serializable {
     /**
      * 申请状态 0未审核 1通过 2不通过
      */
-    private Integer passed;
+    private Integer auditStatus;
 
 
 

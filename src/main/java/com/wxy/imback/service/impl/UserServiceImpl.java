@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
         LoginUser loginUser = new LoginUser();
         BeanUtils.copyProperties(user, loginUser);
         String token = JWTUtil.geneJsonWebToken(loginUser);
-        redisTemplate.opsForValue().set(token, "1", EXPIRE, TimeUnit.MILLISECONDS);
+//        redisTemplate.opsForValue().set(token, "1", EXPIRE, TimeUnit.MILLISECONDS);
         return token;
     }
 

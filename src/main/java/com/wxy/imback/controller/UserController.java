@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -46,8 +47,10 @@ public class UserController {
      * @return
      */
     @PostMapping("/mail_login")
-    public String userLoginByMail(@RequestBody UserLoginByMailQuery param) {
-        return userService.userLoginByMail(param);
+    public String userLoginByMail(@RequestBody UserLoginByMailQuery param, HttpServletResponse response) {
+        String s = userService.userLoginByMail(param);
+        response.setHeader("token", s);
+        return s;
     }
 
 
@@ -62,7 +65,6 @@ public class UserController {
         return userService.findUserByMail(mail);
 
     }
-
 
 
 }
