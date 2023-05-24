@@ -83,7 +83,6 @@ public class ContactsServiceImpl implements ContactsService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public Boolean applyFriend(FriendApplyParam param) throws Exception {
         LoginUser loginUser = LoginInterceptor.threadLocal.get();
         Long friendId = Long.parseLong(CommonUtil.decrypt(param.getUserIdentify()));
