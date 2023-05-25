@@ -24,25 +24,13 @@ public interface UserMapper extends BaseMapper<User> {
      */
     User selectByMail(@Param("mail") String mail);
 
+
     /**
-     * 根据用户id查询好友申请列表
+     * 查询好友列表
      * @param userId
      * @return
      */
-    List<FriendAuditVO> selectFriendAddList(@Param("user_id") Integer userId);
-
-    /**
-     * 根据用户id查询好友列表
-     * @param id
-     */
-    void checkFriendById(@Param("id") Integer id);
-
-    /**
-     * 根据用户id查询好友列表
-     * @param userId
-     * @return
-     */
-   List<FriendListVO> selectFriendList(@Param("user_id") Integer userId);
+   List<FriendListVO> selectFriendList(@Param("user_id") Long userId);
 }
 
 

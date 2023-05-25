@@ -5,6 +5,7 @@ import com.wxy.imback.model.params.contactsparams.FindUserSecretParam;
 import com.wxy.imback.model.params.contactsparams.FriendApplyParam;
 import com.wxy.imback.model.params.contactsparams.FriendAuditParam;
 import com.wxy.imback.model.vo.FriendAuditVO;
+import com.wxy.imback.model.vo.FriendListVO;
 import com.wxy.imback.model.vo.FriendVO;
 import com.wxy.imback.model.vo.UserFriendApplyVO;
 
@@ -52,4 +53,10 @@ public interface ContactsService {
      * @return
      */
     List<FriendVO> friendRequestList();
+
+    /**
+     * 获取好友列表
+     * @return
+     */
+    List<FriendListVO> getFriendList();
 }

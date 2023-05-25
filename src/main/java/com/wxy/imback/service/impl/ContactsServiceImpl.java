@@ -13,10 +13,7 @@ import com.wxy.imback.model.entity.User;
 import com.wxy.imback.model.params.contactsparams.FindUserSecretParam;
 import com.wxy.imback.model.params.contactsparams.FriendApplyParam;
 import com.wxy.imback.model.params.contactsparams.FriendAuditParam;
-import com.wxy.imback.model.vo.FriendApplicationRecordVO;
-import com.wxy.imback.model.vo.FriendAuditVO;
-import com.wxy.imback.model.vo.FriendVO;
-import com.wxy.imback.model.vo.UserFriendApplyVO;
+import com.wxy.imback.model.vo.*;
 import com.wxy.imback.service.ContactsService;
 import com.wxy.imback.utils.CheckUtil;
 import com.wxy.imback.utils.CommonUtil;
@@ -156,6 +153,16 @@ public class ContactsServiceImpl implements ContactsService {
     public List<FriendVO> friendRequestList() {
         LoginUser loginUser = LoginInterceptor.threadLocal.get();
         return friendApplicationRecordMapper.selectFriendRequestList(loginUser.getUserId());
+    }
+
+    /**
+     * 获取好友列表
+     * @return
+     */
+    @Override
+    public List<FriendListVO> getFriendList() {
+        LoginUser loginUser = LoginInterceptor.threadLocal.get();
+        return userMapper.selectFriendList(loginUser.getUserId());
     }
 
     /**

@@ -5,6 +5,7 @@ import com.wxy.imback.model.params.contactsparams.FindUserSecretParam;
 import com.wxy.imback.model.params.contactsparams.FriendApplyParam;
 import com.wxy.imback.model.params.contactsparams.FriendAuditParam;
 import com.wxy.imback.model.vo.FriendAuditVO;
+import com.wxy.imback.model.vo.FriendListVO;
 import com.wxy.imback.model.vo.FriendVO;
 import com.wxy.imback.model.vo.UserFriendApplyVO;
 import com.wxy.imback.service.ContactsService;
@@ -76,7 +77,14 @@ public class ContactsController {
         return contactsService.auditFriendApply(param);
     }
 
-
+    /**
+     * 获取好友列表
+     * @return  todo
+     */
+    @GetMapping("/get_friend_list")
+    public List<FriendListVO> getFriendList(){
+        return contactsService.getFriendList();
+    }
 
 
 }

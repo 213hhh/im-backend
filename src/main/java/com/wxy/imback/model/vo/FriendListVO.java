@@ -15,35 +15,41 @@ public class FriendListVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    private Integer userId;
-
-    /**
-     * 用户名
-     */
-    private String userName;
-
     /**
      * 昵称
      */
     private String nickName;
 
-
     /**
-     * 头像
+     * E-MAIL
      */
-    private String avatar;
-
-
-    /**
-     * 生日
-     */
-    private Date birthday;
+    private String email;
 
 
     /**
      * 性别
      */
     private Integer gender;
+
+    /**
+     * 头象
+     */
+    private String avatar;
+
+    /**
+     * 签名
+     */
+    private String personalSignature;
+
+    /**
+     * 生日
+     */
+    private Date birthday;
+
+    /**
+     * 手机号码
+     */
+    private String mobile;
 
 
 }
