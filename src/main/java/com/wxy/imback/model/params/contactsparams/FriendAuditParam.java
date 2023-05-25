@@ -18,21 +18,12 @@ public class FriendAuditParam implements Serializable {
 
 
     /**
-     *  审核标识
+     *  审核状态 0:待审核 1:通过 2:拒绝
      */
     private Integer audit ;
 
 
 
-    /**
-     * 业务类型 好友id或者群号
-     */
-    private Integer businessType;
-
-    /**
-     * 申请状态 0未审核 1通过 2不通过
-     */
-    private Integer auditStatus;
 
     /**
      * 如果是群则为群id 好友为好友id

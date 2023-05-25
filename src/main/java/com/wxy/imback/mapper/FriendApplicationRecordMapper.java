@@ -18,6 +18,7 @@ public interface FriendApplicationRecordMapper extends BaseMapper<FriendApplicat
 
     /**
      * 申请好友
+     *
      * @param userId 用户id
      * @return
      */
@@ -25,7 +26,8 @@ public interface FriendApplicationRecordMapper extends BaseMapper<FriendApplicat
 
     /**
      * 根据好友id查询好友申请记录
-     * @param userId 用户id
+     *
+     * @param userId   用户id
      * @param friendId 好友id
      * @return
      */
@@ -33,22 +35,18 @@ public interface FriendApplicationRecordMapper extends BaseMapper<FriendApplicat
 
     /**
      * 获取好友申请列表
+     *
      * @param userId 用户id
      * @return
      */
     List<FriendAuditVO> selectFriendApplyList(@Param("user_id") Long userId);
 
-//    /**
-//     * 更新好友申请状态为已通过
-//     * @param userId 用户id
-//     * @param friendId 好友id
-//     */
-//    void updatePassed(@Param("user_id") Long userId, @Param("friend_id") Long friendId);
 
     /**
      * 更新好友申请状态
-     * @param userId 用户id
-     * @param friendId 好友id
+     *
+     * @param userId    用户id
+     * @param friendId  好友id
      * @param applyTime 申请时间
      * @return
      */
@@ -56,12 +54,14 @@ public interface FriendApplicationRecordMapper extends BaseMapper<FriendApplicat
 
     /**
      * 审核好友申请
-     * @param audit 审核状态
-     * @param businessId 好友id
-     * @param userId 用户id
-     * @param auditTime 审核时间
+     *
+     * @param audit       审核状态
+     * @param businessId  好友id
+     * @param userId      用户id
+     * @param auditTime   审核时间
+     * @param auditReason 审核理由
      */
-    Boolean updateAuditStatus(@Param("audit") int audit, @Param("business_id") Long businessId, @Param("user_id") Long userId, @Param("audit_time") long auditTime);
+    Boolean updateAuditStatus(@Param("audit") int audit, @Param("business_id") Long businessId, @Param("audit_reason") String auditReason, @Param("user_id") Long userId, @Param("audit_time") long auditTime);
 }
 
 

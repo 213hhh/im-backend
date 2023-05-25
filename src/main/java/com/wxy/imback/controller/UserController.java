@@ -47,10 +47,9 @@ public class UserController {
      * @return
      */
     @PostMapping("/mail_login")
-    public String userLoginByMail(@RequestBody UserLoginByMailQuery param, HttpServletResponse response) {
+    public void userLoginByMail(@RequestBody UserLoginByMailQuery param, HttpServletResponse response) {
         String s = userService.userLoginByMail(param);
         response.setHeader("token", s);
-        return s;
     }
 
 

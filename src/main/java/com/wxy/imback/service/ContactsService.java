@@ -1,5 +1,6 @@
 package com.wxy.imback.service;
 
+import com.wxy.imback.expection.BizException;
 import com.wxy.imback.model.params.contactsparams.FindUserSecretParam;
 import com.wxy.imback.model.params.contactsparams.FriendApplyParam;
 import com.wxy.imback.model.params.contactsparams.FriendAuditParam;
@@ -42,7 +43,7 @@ public interface ContactsService {
      * @param param
      * @return
      */
-    Boolean auditFriendApply(FriendAuditParam param);
+    Boolean auditFriendApply(FriendAuditParam param) ;
 
 
 }

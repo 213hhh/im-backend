@@ -1,5 +1,6 @@
 package com.wxy.imback.controller;
 
+import com.wxy.imback.expection.BizException;
 import com.wxy.imback.model.params.contactsparams.FindUserSecretParam;
 import com.wxy.imback.model.params.contactsparams.FriendApplyParam;
 import com.wxy.imback.model.params.contactsparams.FriendAuditParam;
@@ -61,7 +62,7 @@ public class ContactsController {
      * @return
      */
     @PostMapping("/audit_friend_apply")
-    public Boolean auditFriendApply(@RequestBody FriendAuditParam param  ){
+    public Boolean auditFriendApply(@RequestBody FriendAuditParam param  )  {
         return contactsService.auditFriendApply(param);
     }
 

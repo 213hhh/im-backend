@@ -8,8 +8,7 @@
             <id property="id" column="id" jdbcType="INTEGER"/>
             <result property="userId" column="user_id" jdbcType="BIGINT"/>
             <result property="businessType" column="business_type" jdbcType="INTEGER"/>
-            <result property="auditStatus
-" column="audit_status" jdbcType="TINYINT"/>
+            <result property="auditStatus" column="audit_status" jdbcType="TINYINT"/>
             <result property="isDelete" column="is_delete" jdbcType="TINYINT"/>
             <result property="applyTime" column="apply_time" jdbcType="BIGINT"/>
             <result property="isBlock" column="is_block" jdbcType="TINYINT"/>
@@ -41,8 +40,14 @@
 
 
     <update id="updateAuditStatus">
-        update friend_application_record set audit_status = #{audit} ,audit_time =#{audit_time},audit_id =#{user_id}
-        where user_id = #{user_id} and business_id = #{business_id} and is_delete = 0
+        update friend_application_record
+        set audit_status = #{audit},
+            audit_time   =#{audit_time},
+            audit_id     =#{user_id},
+            audit_reason=#{audit_reason}
+        where user_id = #{user_id}
+          and business_id = #{business_id}
+          and is_delete = 0
     </update>
 
 
@@ -51,12 +56,12 @@
         where user_id = #{user_id} and business_id = #{friend_id} and is_delete = 0
     </select>
 
+
     <select id="selectFriendApplyList" resultType="com.wxy.imback.model.vo.FriendAuditVO">
         SELECT a.user_id, a.nick_name, a.avatar, b.audit_status
         FROM user a
         JOIN friend_application_record b ON a.user_id = b.business_id
         WHERE b.user_id = #{user_id} AND b.is_delete = 0
-
     </select>
 
 

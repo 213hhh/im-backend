@@ -47,19 +47,11 @@ public class Result<T> {
     public static Result error(Object object) {
         Result resultVO = new Result();
         resultVO.setData(object);
-        resultVO.setCode(BizCodeEnum.SUCESS.getCode());
-        resultVO.setMsg(BizCodeEnum.SUCESS.getMessage());
+        resultVO.setCode(BizCodeEnum.ERROR.getCode());
+        resultVO.setMsg(BizCodeEnum.ERROR.getMessage());
         return resultVO;
     }
-    /**
-     * 返回成功信息（不带数据）
-     * @return
-     */
-    public static Result success() {
-        return success(null);
-    }
-
-
+    
 
     /**
      * 返回错误数据

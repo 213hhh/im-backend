@@ -32,4 +32,5 @@ public class BizException extends Exception {
         this.msg = errorCode.getMessage();
     }
 
+
 }

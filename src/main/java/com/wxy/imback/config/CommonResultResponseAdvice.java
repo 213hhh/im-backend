@@ -1,6 +1,7 @@
 package com.wxy.imback.config;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wxy.imback.expection.BizException;
 import com.wxy.imback.utils.Result;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -29,6 +30,10 @@ public class CommonResultResponseAdvice implements ResponseBodyAdvice<Object> {
         }
         if (o instanceof Result) {
             return o;
+        }
+        if (o instanceof BizException) {
+            BizException exception = (BizException) o;
+            return Result.error(exception.getCode(), exception.getMessage());
         }
         return Result.success(o);
     }

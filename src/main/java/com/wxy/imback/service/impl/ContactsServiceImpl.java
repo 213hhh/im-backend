@@ -48,9 +48,9 @@ public class ContactsServiceImpl implements ContactsService {
     private FriendMapper friendMapper;
 
     /**
-     * 好友验证过期时间 7天
+     * 好友验证过期时间3天
      */
-    public static final long VALIDATION_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 7;
+    public static final long VALIDATION_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 3;
 
     /**
      * 查找好友
@@ -84,11 +84,11 @@ public class ContactsServiceImpl implements ContactsService {
     @Override
     public Boolean applyFriend(FriendApplyParam param) throws Exception {
         LoginUser loginUser = LoginInterceptor.threadLocal.get();
-        Long friendId = Long.parseLong(CommonUtil.decrypt(param.getUserIdentify()));
-        Assert.isTrue(!loginUser.getUserId().equals(friendId), BizCodeEnum.CAN_NOT_ADD_MYSELF.getMessage());
-        FriendApplicationRecordVO friendApplicationRecordVO = friendApplicationRecordMapper.selectByFriendId(loginUser.getUserId(), friendId);
+        Long businessId = Long.parseLong(CommonUtil.decrypt(param.getUserIdentify()));
+        Assert.isTrue(!loginUser.getUserId().equals(businessId), BizCodeEnum.CAN_NOT_ADD_MYSELF.getMessage());
+        FriendApplicationRecordVO friendApplicationRecordVO = friendApplicationRecordMapper.selectByFriendId(loginUser.getUserId(), businessId);
         if (friendApplicationRecordVO == null) {
-            return saveFriend(loginUser, friendId);
+            return saveFriend(loginUser, businessId);
         }
         Assert.isTrue(!(friendApplicationRecordVO.getAuditStatus().equals(AuditStatus.PASS)),
                 BizCodeEnum.ADD_AS_FRIEND.getMessage());
@@ -96,7 +96,7 @@ public class ContactsServiceImpl implements ContactsService {
             log.info("重复发送间隔:{}", (System.currentTimeMillis() - friendApplicationRecordVO.getApplyTime()) / 1000);
             Assert.isTrue((System.currentTimeMillis() - friendApplicationRecordVO.getApplyTime()) / 1000 >= VALIDATION_EXPIRATION_TIME, BizCodeEnum.ADD_REPEAT.getMessage());
         }
-        return friendApplicationRecordMapper.updateApplyStatus(loginUser.getUserId(), friendId, System.currentTimeMillis());
+        return friendApplicationRecordMapper.updateApplyStatus(loginUser.getUserId(), businessId, System.currentTimeMillis());
     }
 
     private Boolean saveFriend(LoginUser loginUser, Long friendId) {
@@ -111,14 +111,13 @@ public class ContactsServiceImpl implements ContactsService {
     }
 
     /**
-     * 获取新好友申请列表
+     * 获取好友申请列表
      *
      * @return
      */
     @Override
     public List<FriendAuditVO> friendApplyList() {
         LoginUser loginUser = LoginInterceptor.threadLocal.get();
-        //todo
         return friendApplicationRecordMapper.selectFriendApplyList(loginUser.getUserId());
 
     }
@@ -135,9 +134,7 @@ public class ContactsServiceImpl implements ContactsService {
     public Boolean auditFriendApply(FriendAuditParam param) {
         LoginUser loginUser = LoginInterceptor.threadLocal.get();
         long auditTime = System.currentTimeMillis();
-        if (param.getAudit().equals("") || param.getAudit() == null) {
-            return false;
-        }
+        Assert.isTrue(param.getAudit() != null && param.getBusinessId() != null && param.getAuditReason() != null, BizCodeEnum.PARAM_ERROR.getMessage());
         if (param.getAudit().equals(AuditStatus.PASS)) {
             //通过好友申请
             applyFriendRecord(param, loginUser, auditTime);
@@ -152,25 +149,27 @@ public class ContactsServiceImpl implements ContactsService {
     }
 
     /**
-     * 不通过好友申请
+     * 拒绝好友申请
+     *
      * @param param
      * @param loginUser
      * @param auditTime
      * @return
      */
     private Boolean disagreeFriendRecord(FriendAuditParam param, LoginUser loginUser, long auditTime) {
-        return friendApplicationRecordMapper.updateAuditStatus(param.getAudit(), param.getBusinessId(), loginUser.getUserId(), auditTime);
+        return friendApplicationRecordMapper.updateAuditStatus(param.getAudit(), param.getBusinessId(), param.getAuditReason(), loginUser.getUserId(), auditTime);
 
     }
 
     /**
      * 通过好友申请
+     *
      * @param param
      * @param loginUser
      * @param auditTime
      */
     private void applyFriendRecord(FriendAuditParam param, LoginUser loginUser, long auditTime) {
-        friendApplicationRecordMapper.updateAuditStatus(param.getAudit(), param.getBusinessId(), loginUser.getUserId(), auditTime);
+        friendApplicationRecordMapper.updateAuditStatus(param.getAudit(), param.getBusinessId(), param.getAuditReason(), loginUser.getUserId(), auditTime);
         friendMapper.insert(loginUser.getUserId(), param.getBusinessId(), auditTime);
     }
 }
