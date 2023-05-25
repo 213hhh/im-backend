@@ -19,7 +19,7 @@ public interface FriendMapper extends BaseMapper<Friend> {
      * @param businessId
      * @param auditTime
      */
-    void insert(@Param("user_id") Long userId, @Param("business_id") Long businessId, @Param("audit_time") long auditTime);
+    void insert(@Param("user_id") Long userId, @Param("business_id") Long businessId,@Param("apply_time")Long applyTime, @Param("audit_time") long auditTime);
 }
 
 

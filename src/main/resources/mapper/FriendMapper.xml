@@ -20,6 +20,7 @@
     </sql>
 
     <insert id="insert">
-        insert into friend (user_id, friend_id, audit_time) values (#{user_id}, #{business_id}, #{audit_time})
+        insert into friend (user_id, friend_id, apply_time, audit_time)
+        values (#{user_id}, #{business_id}, #{apply_time}, #{audit_time})
     </insert>
 </mapper>

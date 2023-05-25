@@ -5,6 +5,7 @@ import com.wxy.imback.model.params.contactsparams.FindUserSecretParam;
 import com.wxy.imback.model.params.contactsparams.FriendApplyParam;
 import com.wxy.imback.model.params.contactsparams.FriendAuditParam;
 import com.wxy.imback.model.vo.FriendAuditVO;
+import com.wxy.imback.model.vo.FriendVO;
 import com.wxy.imback.model.vo.UserFriendApplyVO;
 
 import java.util.List;
@@ -46,4 +47,9 @@ public interface ContactsService {
     Boolean auditFriendApply(FriendAuditParam param) ;
 
 
+    /**
+     * 好友请求列表
+     * @return
+     */
+    List<FriendVO> friendRequestList();
 }

@@ -6,11 +6,12 @@ import java.io.Serializable;
 
 /**
  * @Author WXY
- * @Date 2023/5/21 21:56
+ * @Date 2023/5/25 14:36
  * @Version 1.0
  */
 @Data
-public class FriendAuditVO implements Serializable {
+public class FriendVO implements Serializable {
+
 
     private static final long serialVersionUID = 1L;
 
@@ -37,6 +38,4 @@ public class FriendAuditVO implements Serializable {
      * 申请时间
      */
     private Long applyTime;
-
-
 }

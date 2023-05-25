@@ -18,11 +18,9 @@ public class FriendAuditParam implements Serializable {
 
 
     /**
-     *  审核状态 0:待审核 1:通过 2:拒绝
+     * 审核状态 0:待审核 1:通过 2:拒绝
      */
-    private Integer audit ;
-
-
+    private Integer audit;
 
 
     /**
@@ -34,4 +32,10 @@ public class FriendAuditParam implements Serializable {
      * 审核理由
      */
     private String auditReason;
+
+
+    /**
+     * 申请时间
+     */
+    private Long applyTime;
 }

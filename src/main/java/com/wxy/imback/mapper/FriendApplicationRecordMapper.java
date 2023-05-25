@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wxy.imback.model.entity.FriendApplicationRecord;
 import com.wxy.imback.model.vo.FriendApplicationRecordVO;
 import com.wxy.imback.model.vo.FriendAuditVO;
+import com.wxy.imback.model.vo.FriendVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -62,6 +63,8 @@ public interface FriendApplicationRecordMapper extends BaseMapper<FriendApplicat
      * @param auditReason 审核理由
      */
     Boolean updateAuditStatus(@Param("audit") int audit, @Param("business_id") Long businessId, @Param("audit_reason") String auditReason, @Param("user_id") Long userId, @Param("audit_time") long auditTime);
+
+    List<FriendVO> selectFriendRequestList(@Param("user_id") Long userId);
 }
 
 

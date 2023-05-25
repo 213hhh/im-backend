@@ -5,6 +5,7 @@ import com.wxy.imback.model.params.contactsparams.FindUserSecretParam;
 import com.wxy.imback.model.params.contactsparams.FriendApplyParam;
 import com.wxy.imback.model.params.contactsparams.FriendAuditParam;
 import com.wxy.imback.model.vo.FriendAuditVO;
+import com.wxy.imback.model.vo.FriendVO;
 import com.wxy.imback.model.vo.UserFriendApplyVO;
 import com.wxy.imback.service.ContactsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class ContactsController {
     }
 
     /**
-     * 获取新好友申请列表
+     * 好友申请列表 (添加我的)
      *
      * @return
      */
@@ -55,6 +56,15 @@ public class ContactsController {
     public List<FriendAuditVO> friendApplyList(){
         return contactsService.friendApplyList();
     }
+
+    /**
+     * 好友请求列表 (我添加的)
+     */
+    @GetMapping("/friend_request_list")
+    public List<FriendVO> friendRequestList(){
+        return contactsService.friendRequestList();
+    }
+
 
     /**
      * 审核好友申请
@@ -65,6 +75,8 @@ public class ContactsController {
     public Boolean auditFriendApply(@RequestBody FriendAuditParam param  )  {
         return contactsService.auditFriendApply(param);
     }
+
+
 
 
 }

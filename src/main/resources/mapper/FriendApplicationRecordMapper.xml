@@ -58,14 +58,19 @@
 
 
     <select id="selectFriendApplyList" resultType="com.wxy.imback.model.vo.FriendAuditVO">
-        SELECT a.user_id, a.nick_name, a.avatar, b.audit_status
+        SELECT a.user_id, a.nick_name, a.avatar, b.audit_status,b.apply_time
         FROM user a
-        JOIN friend_application_record b ON a.user_id = b.business_id
-        WHERE b.user_id = #{user_id} AND b.is_delete = 0
+        JOIN friend_application_record b ON a.user_id = b.user_id
+        WHERE b.business_id = #{user_id} AND b.is_delete = 0 order by b.apply_time desc
     </select>
 
 
-
+    <select id="selectFriendRequestList" resultType="com.wxy.imback.model.vo.FriendVO">
+        SELECT a.user_id, a.nick_name, a.avatar, b.audit_status,b.apply_time
+        FROM user a
+        JOIN friend_application_record b ON a.user_id = b.business_id
+        WHERE b.user_id = #{user_id} AND b.is_delete = 0 order by b.apply_time desc
+    </select>
 
 
 </mapper>
