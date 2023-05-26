@@ -121,7 +121,7 @@ public class ContactsServiceImpl implements ContactsService {
 
     /**
      * 审核好友申请
-     * todo 分布式事务
+     *
      *
      * @param param
      * @return

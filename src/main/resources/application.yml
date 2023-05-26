@@ -12,6 +12,7 @@ spring:
     host: 124.222.37.177
     password: wxy19981207
     port: 8000
+
 ##集群配置
 #    cluster:
 #      nodes:

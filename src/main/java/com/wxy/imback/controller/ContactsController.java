@@ -79,12 +79,14 @@ public class ContactsController {
 
     /**
      * 获取好友列表
-     * @return  todo
+     * @return
      */
     @GetMapping("/get_friend_list")
     public List<FriendListVO> getFriendList(){
         return contactsService.getFriendList();
     }
+
+
 
 
 }

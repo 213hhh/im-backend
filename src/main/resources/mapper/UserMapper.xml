@@ -52,10 +52,16 @@
 
 
     <select id="selectFriendList" resultType="com.wxy.imback.model.vo.FriendListVO">
-        select a.nick_name,a.email,a.gender,a.avatar,a.personal_signature,a.birthday,a.mobile
-        from user a left join friend b on a.user_id = b.friend_id
-        where b.user_id = #{user_id} or b.friend_id =#{user_id} and b.is_delete = 0
 
+        SELECT u.user_id, u.nick_name
+        FROM user u
+        INNER JOIN friend f ON u.user_id = f.friend_id
+        WHERE f.user_id = #{user_id}
+        UNION
+        SELECT u.user_id, u.nick_name
+        FROM user u
+        INNER JOIN friend f ON u.user_id = f.user_id
+        WHERE f.friend_id = #{user_id}
 
     </select>
 </mapper>
