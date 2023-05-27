@@ -82,6 +82,7 @@ public class ContactsServiceImpl implements ContactsService {
      */
     @Override
     public Boolean applyFriend(FriendApplyParam param) throws Exception {
+        Assert.isTrue(param.getUserIdentify() != null, BizCodeEnum.USER_IDENTIFY_IS_NULL.getMessage());
         LoginUser loginUser = LoginInterceptor.threadLocal.get();
         Long businessId = Long.parseLong(CommonUtil.decrypt(param.getUserIdentify()));
         Assert.isTrue(!Objects.equals(loginUser.getUserId(), businessId), BizCodeEnum.CAN_NOT_ADD_MYSELF.getMessage());
@@ -122,7 +123,6 @@ public class ContactsServiceImpl implements ContactsService {
     /**
      * 审核好友申请
      *
-     *
      * @param param
      * @return
      */
@@ -147,6 +147,7 @@ public class ContactsServiceImpl implements ContactsService {
 
     /**
      * 好友请求列表
+     *
      * @return
      */
     @Override
@@ -157,6 +158,7 @@ public class ContactsServiceImpl implements ContactsService {
 
     /**
      * 获取好友列表
+     *
      * @return
      */
     @Override

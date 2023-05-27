@@ -47,11 +47,13 @@ public enum BizCodeEnum implements ErrorCode {
     CAN_NOT_ADD_MYSELF(260000, "不能添加自己"),
     ADD_REPEAT(260001, "请勿重复添加"),
     ADD_AS_FRIEND(260002, "已添加为好友"),
+    USER_IDENTIFY_IS_NULL(26003,"用户标识为空" )  ,
 
     /**
      * 文件相关
      */
-    FILE_UPLOAD_USER_IMG_FAIL(600101, "用户头像文件上传失败");
+    FILE_UPLOAD_USER_IMG_FAIL(600101,"用户头像文件上传失败"),
+    ;
 
     private String message;
 
@@ -70,4 +72,4 @@ public enum BizCodeEnum implements ErrorCode {
     public int getCode() {
         return code;
     }
-}
+    }
