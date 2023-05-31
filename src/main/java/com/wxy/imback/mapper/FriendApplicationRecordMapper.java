@@ -64,7 +64,7 @@ public interface FriendApplicationRecordMapper extends BaseMapper<FriendApplicat
      */
     Boolean updateAuditStatus(@Param("audit") int audit, @Param("business_id") Long businessId, @Param("audit_reason") String auditReason, @Param("user_id") Long userId, @Param("audit_time") long auditTime);
 
-    List<FriendVO> selectFriendRequestList(@Param("user_id") Long userId);
+
 }
 
 

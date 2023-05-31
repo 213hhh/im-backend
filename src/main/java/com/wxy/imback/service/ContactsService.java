@@ -48,11 +48,7 @@ public interface ContactsService {
     Boolean auditFriendApply(FriendAuditParam param) ;
 
 
-    /**
-     * 好友请求列表
-     * @return
-     */
-    List<FriendVO> friendRequestList();
+
 
     /**
      * 获取好友列表
